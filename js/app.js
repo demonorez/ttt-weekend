@@ -7,11 +7,11 @@ let tie
 let board
 let turn 
 let winner 
+
 /*------------------------ Cached Element References ------------------------*/
 const squareEls = document.querySelectorAll(".sqr")
 console.dir(squareEls);
 const messageEl = document.querySelector("#message")
-console.log(messageEl);
 /*----------------------------- Event Listeners -----------------------------*/
 
 
@@ -19,41 +19,60 @@ console.log(messageEl);
 /*-------------------------------- Functions --------------------------------*/
 function init() {
   tie = false
-  board = [null, null, null, null, null, null, null, null, null]
+  board = [-1, 1, 1, -1, null, null, null, null, null]
   turn = 1
   winner = false
   render()
 }
 init()
 
-
 function render() {
   updateBoard()
-  updateMessage
+  updateMessage()
 }
 
 function updateBoard() {
-  board.forEach(box => {
-    document.querySelector("#sq0").textContent ="0"
-    document.querySelector("#sq1").textContent = "1"
-    document.querySelector("#sq2").textContent = "2"
-    document.querySelector("#sq3").textContent = "3"
-    document.querySelector("#sq4").textContent = "4"
-    document.querySelector("#sq5").textContent = "5"
-    document.querySelector("#sq6").textContent = "6"
-    document.querySelector("#sq7").textContent = "7"
-    document.querySelector("#sq8").textContent = "8"
+  board.forEach(function (box, index) {
+    if (box === -1) {
+      squareEls[index].textContent = "O";
+      return
+    }
+    if (box === 1){
+      squareEls[index].textContent = "X";
+      return
+    } if (box === 0){
+      squareEls[index].textContent = "";
+      return 
+    }
   })
 }
+
 updateBoard()
-  function updateMessage() {
-    render() 
-    if (`${winner} %% ${tie} === false`) {
-      
-    }
+  
+function updateMessage() {
+  if (winner === false && tie === false && turn === -1) {
+    messageEl.textContent = "player x turn"
+  } else if (winner === false && tie === false && turn == 1){
+    messageEl.textContent = "player 0 turn" 
+  } else if (winner === true && tie === false && turn == 1) {
+    messageEl.textContent = "player x wins" 
+  } else if (winner === true && tie === false && turn == -1){
+  messageEl.textContent = "player o wins"
+  } else {
+    messageEl.textContent = "it's a tie"
   }
+}
 
+    // if (`${winner} ${tie} === false : ${turn} *= -1`) {
+    //   messageEl.textContent = "Player 1"
+    // } else if (`${winner} === false ${tie} === true`) {
+    // messageEl.textContent = "It's a tie"
+    // } else { 
+    //   messageEl.textContent = `Congrats! Player ${turn} wins`
+    // }
 
+updateMessage
+console.log(messageEl.textContent);
 
 
 

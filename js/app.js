@@ -1,6 +1,6 @@
 /*-------------------------------- Constants --------------------------------*/
 const winningCombos = [[0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 4, 8], [2, 4, 6]]
-
+const resetBtnEl = document.querySelector("#reset")
 
 /*---------------------------- Variables (state) ----------------------------*/
 let tie 
@@ -10,12 +10,11 @@ let winner
 
 /*------------------------ Cached Element References ------------------------*/
 const squareEls = document.querySelectorAll(".sqr")
-console.dir(squareEls);
 const messageEl = document.querySelector("#message")
 
 /*----------------------------- Event Listeners -----------------------------*/
 squareEls.forEach(square => square.addEventListener("click", handleClick))
-
+resetBtnEl.addEventListener("click", init)
 
 /*-------------------------------- Functions --------------------------------*/
 function init() {
@@ -73,8 +72,10 @@ function handleClick(evt) {
   } 
   placePiece(intIdx)
   checkForTie()
+  checkForWinner()
   switchPlayerTurn()
-  console.log(intIdx);
+  render()
+  updateMessage
 }
 
 function placePiece (index) {
@@ -87,11 +88,19 @@ function checkForTie() {
   }
 }
 checkForTie()
-console.log(tie);
-// function checkForWinner(turn) {
-//   let result = false
-//   if ()
-// }
+
+// [[0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 4, 8], [2, 4, 6]]
+
+function checkForWinner(i) {
+  winningCombos.forEach(function (winArray){
+    let sum = winArray.reduce(function(prev, num) {
+      return prev + board[num]
+        }, 0); 
+      if (Math.abs(sum) === 3){
+      winner = true
+    } 
+  })
+}
 
 function switchPlayerTurn() {
   if (winner === true){
@@ -104,7 +113,7 @@ function switchPlayerTurn() {
 
 
 updateMessage
-console.log(messageEl.textContent);
+
 
 
 

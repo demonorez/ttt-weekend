@@ -14,21 +14,13 @@ console.dir(squareEls);
 const messageEl = document.querySelector("#message")
 
 /*----------------------------- Event Listeners -----------------------------*/
-document.getElementById("sq0").addEventListener("click", handleClick)
-document.getElementById("sq1").addEventListener("click", handleClick)
-document.getElementById("sq2").addEventListener("click", handleClick)
-document.getElementById("sq3").addEventListener("click", handleClick)
-document.getElementById("sq4").addEventListener("click", handleClick)
-document.getElementById("sq5").addEventListener("click", handleClick)
-document.getElementById("sq6").addEventListener("click", handleClick)
-document.getElementById("sq7").addEventListener("click", handleClick)
-document.getElementById("sq8").addEventListener("click", handleClick)
+squareEls.forEach(square => square.addEventListener("click", handleClick))
 
 
 /*-------------------------------- Functions --------------------------------*/
 function init() {
   tie = false
-  board = [1, null, null, null, null, null, null, null, null]
+  board = [null, null, null, null, null, null, null, null, null]
   turn = 1
   winner = false
   render()
@@ -49,7 +41,7 @@ function updateBoard() {
     if (box === 1){
       squareEls[index].textContent = "X";
       return
-    } if (box === 0){
+    } if (box === null){
       squareEls[index].textContent = "";
       return 
     }
@@ -62,7 +54,7 @@ function updateMessage() {
   if (winner === false && tie === false && turn === -1) {
     messageEl.textContent = "player x turn"
   } else if (winner === false && tie === false && turn == 1){
-    messageEl.textContent = "player 0 turn" 
+    messageEl.textContent = "player o turn" 
   } else if (winner === true && tie === false && turn == 1) {
     messageEl.textContent = "player x wins" 
   } else if (winner === true && tie === false && turn == -1){
@@ -79,7 +71,10 @@ function handleClick(evt) {
   if (coorBoard !== null || winner === true){
     return
   } 
-
+  placePiece(intIdx)
+  checkForTie()
+  switchPlayerTurn()
+  console.log(intIdx);
 }
 
 function placePiece (index) {
@@ -87,16 +82,26 @@ function placePiece (index) {
 }
 
 function checkForTie() {
-  if (board)
+  if (!board.includes(null)) {
+  tie = true
+  }
+}
+checkForTie()
+console.log(tie);
+// function checkForWinner(turn) {
+//   let result = false
+//   if ()
+// }
+
+function switchPlayerTurn() {
+  if (winner === true){
+  return
+  }
+  if (winner === false){
+    turn *= -1
+  }
 }
 
-    // if (`${winner} ${tie} === false : ${turn} *= -1`) {
-    //   messageEl.textContent = "Player 1"
-    // } else if (`${winner} === false ${tie} === true`) {
-    // messageEl.textContent = "It's a tie"
-    // } else { 
-    //   messageEl.textContent = `Congrats! Player ${turn} wins`
-    // }
 
 updateMessage
 console.log(messageEl.textContent);

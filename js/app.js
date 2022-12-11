@@ -14,13 +14,21 @@ console.dir(squareEls);
 const messageEl = document.querySelector("#message")
 
 /*----------------------------- Event Listeners -----------------------------*/
-
+document.getElementById("sq0").addEventListener("click", handleClick)
+document.getElementById("sq1").addEventListener("click", handleClick)
+document.getElementById("sq2").addEventListener("click", handleClick)
+document.getElementById("sq3").addEventListener("click", handleClick)
+document.getElementById("sq4").addEventListener("click", handleClick)
+document.getElementById("sq5").addEventListener("click", handleClick)
+document.getElementById("sq6").addEventListener("click", handleClick)
+document.getElementById("sq7").addEventListener("click", handleClick)
+document.getElementById("sq8").addEventListener("click", handleClick)
 
 
 /*-------------------------------- Functions --------------------------------*/
 function init() {
   tie = false
-  board = [null, 1, -1, null, 1, -1, null, 1, -1]
+  board = [1, null, null, null, null, null, null, null, null]
   turn = 1
   winner = false
   render()
@@ -64,7 +72,23 @@ function updateMessage() {
   }
 }
 
+function handleClick(evt) {
+  const sqrIdx = evt.target.id
+  let intIdx = parseInt(sqrIdx.charAt(2))
+  let coorBoard = board[intIdx]
+  if (coorBoard !== null || winner === true){
+    return
+  } 
 
+}
+
+function placePiece (index) {
+  board[index] = turn
+}
+
+function checkForTie() {
+  if (board)
+}
 
     // if (`${winner} ${tie} === false : ${turn} *= -1`) {
     //   messageEl.textContent = "Player 1"
